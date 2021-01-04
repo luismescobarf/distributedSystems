@@ -1,2 +1,2 @@
 # distributedSystems
-Implementation distributed systems' basic concepts
+Implementation of distributed systems' basic concepts
