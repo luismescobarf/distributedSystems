@@ -1,7 +1,7 @@
 package main //Nombre del paquete (y ejemplo de comentario)
 
 //Sección donde se importan otros paquetes o librerías
-import "fmt"
+import "fmt" //Paquete que contiene funciones de entrada y salida básicas
 
 //Definición del main, donde se inicia la ejecición
 func main(){
