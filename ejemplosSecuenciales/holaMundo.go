@@ -1,4 +1,4 @@
-package main //Nombre del paquete (y ejemplo de comentario)
+package main //Nombre del paquete (primer ejemplo de comentario)
 
 //Sección donde se importan otros paquetes o librerías
 import "fmt" //Paquete que contiene funciones de entrada y salida básicas
