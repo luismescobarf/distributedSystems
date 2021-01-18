@@ -13,3 +13,9 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+#Omitir directorios de VSCode
+#Plugin para golang
+./metals 
+#Carpeta respectiva de VSCode
+./vscode 

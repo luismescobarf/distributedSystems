@@ -1,0 +1,6 @@
+#FileLock
+#Fri Jan 15 10:17:18 COT 2021
+server=localhost\:63888
+hostName=localhost
+method=file
+id=177069f490b0a9becec8005110dbce9e1a4dd548cb0
