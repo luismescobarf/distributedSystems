@@ -12,7 +12,7 @@ func main() {
 	var wg sync.WaitGroup
 
 	operación := func(i int) {
-		defer wg.Done() //Restar uno al WaitGroup, el defer garantiza la realización al final de la función
+		defer wg.Done() //Restar uno al WaitGroup, defer para ejecutar al final
 		fmt.Println("operación", i, time.Now().Format("5"))
 		time.Sleep(3 * time.Second) //Simular carga computacional
 		fmt.Println("operación", i, time.Now().Format("5"))
