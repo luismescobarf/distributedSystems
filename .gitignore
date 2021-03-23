@@ -19,3 +19,5 @@
 ./metals 
 #Carpeta respectiva de VSCode
 ./vscode 
+#Ocultos sistema de archivos
+.DS_Store
