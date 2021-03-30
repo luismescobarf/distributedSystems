@@ -87,3 +87,7 @@ INFO: Unsupported notification method: $/setTraceNotification
 [0m2021.03.30 11:06:07 WARN  no build tool detected in workspace '/Users/luismiguelescobarfalcon/Dropbox/UniLibre/SistemasDistribuidos/repositorioSistemasDistribuidos'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
 mar. 30, 2021 11:23:38 A. M. org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
 INFO: Unsupported notification method: $/setTraceNotification
+mar. 30, 2021 11:48:44 A. M. org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+mar. 30, 2021 11:49:28 A. M. org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
