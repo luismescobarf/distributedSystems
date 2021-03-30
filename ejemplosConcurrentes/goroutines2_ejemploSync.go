@@ -16,6 +16,7 @@ func main() {
 		fmt.Println("operación", i, time.Now().Format("5"))
 		time.Sleep(3 * time.Second) //Simular carga computacional
 		fmt.Println("operación", i, time.Now().Format("5"))
+		//wg.Done()
 	}
 
 	inicio := time.Now() //Inicio de la toma de tiempo
