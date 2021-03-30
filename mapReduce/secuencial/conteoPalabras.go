@@ -73,21 +73,19 @@ func etapaMap(linea string) []tupla {
 }
 
 //Etapa de "barajado" del mapeo
-func shuffler(contenedorLlaveValor []tupla) map[string][]tupla {
+func shuffler(contenedorLlaveValor [][]tupla) map[string][]tupla {
 
 	//Preprar el contenedor de salida del barajado
 	apilados := make(map[string][]tupla)
 
-	//Apilar el resultado del mapeo por llaves
-	for _, kv := range contenedorLlaveValor {
+	//Por cada una de las líneas o pedazos resultantes de mapeo
+	for _, linea := range contenedorLlaveValor {
 
-		//Revisar si ya existe
-		_, existe := apilados[kv.llave]
-		//Si no existe adicionarlo
-		if !existe {
-			apilados[kv.llave] = []tupla{kv}
-		} else { //Si existe, incrementar la pila correspondiente
+		//Apilar el resultado del mapeo por llaves
+		for _, kv := range linea {
+
 			apilados[kv.llave] = append(apilados[kv.llave], kv)
+
 		}
 
 	}
@@ -119,15 +117,15 @@ func main() {
 		}
 	*/
 
-	fmt.Println("Resultado etapa de mapeo")
-	var contenedorMapeo []tupla
+	fmt.Println("---->Resultado etapa de mapeo")
+	var contenedorMapeo [][]tupla
 	for i, linea := range lineas {
 		fmt.Println("Línea ", i)
-		contenedorMapeo = etapaMap(linea)
+		contenedorMapeo = append(contenedorMapeo, etapaMap(linea))
 		fmt.Println(contenedorMapeo)
 	}
 
-	fmt.Println("Resultado etapa de shuffling")
+	fmt.Println("---->Resultado etapa de shuffling")
 	var contenedorShuffle map[string][]tupla
 	contenedorShuffle = shuffler(contenedorMapeo)
 	fmt.Println(contenedorShuffle)
