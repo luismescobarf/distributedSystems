@@ -95,6 +95,24 @@ func shuffler(contenedorLlaveValor [][]tupla) map[string][]tupla {
 
 }
 
+//Etapa reduce
+func reducer(contenedorShuffler map[string][]tupla) map[string]int {
+
+	//Preparar el contenedor de reducción
+	contenedorReducer := make(map[string]int)
+
+	//Reducir cada una de las pilas o montones
+	for _, monton := range contenedorShuffler {
+		for _, kv := range monton {
+			contenedorReducer[kv.llave] += kv.valor
+		}
+	}
+
+	//Retornar el resultado de la reducción
+	return contenedorReducer
+
+}
+
 func main() {
 
 	var ruta string
@@ -129,5 +147,10 @@ func main() {
 	var contenedorShuffle map[string][]tupla
 	contenedorShuffle = shuffler(contenedorMapeo)
 	fmt.Println(contenedorShuffle)
+
+	fmt.Println("---->Resultado etapa reduce")
+	var contenedorReducer map[string]int
+	contenedorReducer = reducer(contenedorShuffle)
+	fmt.Println(contenedorReducer)
 
 }
