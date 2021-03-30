@@ -12,26 +12,8 @@ type tupla struct {
 	valor int
 }
 
-//Función para lectura de un archivo
-func leerLineas(path string) ([]string, error) {
-	archivo, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	defer archivo.Close()
-
-	//Arreglo que recibirá las líneas del archivo
-	var lineas []string
-	scanner := bufio.NewScanner(archivo)
-	for scanner.Scan() {
-		lineas = append(lineas, scanner.Text())
-	}
-
-	//Retornar las líneas y el estado de la lectura
-	return lineas, scanner.Err()
-}
-
-//Función que cuenta las palabras en un string (línea de un archivo) (mezcla entre map y reduce)
+//Función que cuenta las palabras en un string (línea de un archivo)
+//Nota: mezcla entre map y reduce
 func palabrasString(linea string) map[string]int {
 
 	//Inicializar contenedor de salida
@@ -52,13 +34,34 @@ func palabrasString(linea string) map[string]int {
 	return mapaPalabras
 }
 
-//Etapa de mapeo para el conteo
-func etapaMap(linea string) []tupla {
+//Función para lectura de un archivo
+func leerLineas(path string) ([]string, error) {
+	archivo, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer archivo.Close()
 
-	//Limpiar si hay caracteres al comienzo y al final
-	linea = strings.TrimSpace(linea)
-	//Separar las palabras de la línea o string recibido
-	listadoPalabras := strings.Split(linea, " ")
+	//Arreglo que recibirá las líneas del archivo
+	var lineas []string
+	scanner := bufio.NewScanner(archivo)
+	for scanner.Scan() {
+		lineas = append(lineas, scanner.Text())
+	}
+
+	//Retornar las líneas y el estado de la lectura
+	return lineas, scanner.Err()
+}
+
+//Etapa de mapeo para la porción de trabajo recibida
+func etapaMap(listadoPalabras []string) []tupla {
+
+	/*
+		//Limpiar si hay caracteres al comienzo y al final
+		linea = strings.TrimSpace(linea)
+		//Separar las palabras de la línea o string recibido
+		listadoPalabras := strings.Split(linea, " ")
+	*/
 
 	//Contenedor con el resultado del mapeo
 	contenedorLlaveValor := make([]tupla, len(listadoPalabras))
@@ -113,21 +116,37 @@ func reducer(contenedorShuffler map[string][]tupla) map[string]int {
 
 }
 
+//El main realizará en la versión secuencial el Input, el Splitting y el Final result
 func main() {
 
-	var ruta string
-	//ruta = "texto.txt"
-	ruta = "foo.txt"
-	lineas, _ := leerLineas(ruta)
+	//Input y splitting (distribución del trabajo y limpieza del input)
 
+	//Splitting implícito por líneas
+	var ruta string
+	ruta = "texto.txt"
+	//ruta = "foo.txt"
+	lineas, _ := leerLineas(ruta)
 	fmt.Println(lineas)
-	//fmt.Println()
-	//fmt.Println()
-	//fmt.Println(lineas[0])
-	//fmt.Println(lineas[1])
-	//fmt.Println(lineas[2])
+
+	//Tratamiento del input para enviar las porciones al flujo del mapReduce
+	var acumuladorPartesTrabajo [][]string
+	for _, linea := range lineas {
+
+		//Limpiar si hay caracteres de movimientos de carro al comienzo y al final
+		linea = strings.TrimSpace(linea)
+		//Quitar puntuaciones
+		linea = strings.ReplaceAll(linea, ":", "")
+		linea = strings.ReplaceAll(linea, ";", "")
+		linea = strings.ReplaceAll(linea, ",", "")
+		linea = strings.ReplaceAll(linea, ".", "")
+		//Separar las palabras de la línea o string recibido
+		listadoPalabras := strings.Split(linea, " ")
+		acumuladorPartesTrabajo = append(acumuladorPartesTrabajo, listadoPalabras)
+
+	}
 
 	/*
+		//Utilización de función mezclada, no hace parte de la estructura original mapReduce
 		fmt.Println("Resultado del mapeo con agregación")
 		for i, linea := range lineas {
 			fmt.Println("Línea ", i)
@@ -137,9 +156,9 @@ func main() {
 
 	fmt.Println("---->Resultado etapa de mapeo")
 	var contenedorMapeo [][]tupla
-	for i, linea := range lineas {
-		fmt.Println("Línea ", i)
-		contenedorMapeo = append(contenedorMapeo, etapaMap(linea))
+	for i, parteTrabajo := range acumuladorPartesTrabajo {
+		fmt.Println("Parte ", i)
+		contenedorMapeo = append(contenedorMapeo, etapaMap(parteTrabajo))
 		fmt.Println(contenedorMapeo)
 	}
 
@@ -152,5 +171,10 @@ func main() {
 	var contenedorReducer map[string]int
 	contenedorReducer = reducer(contenedorShuffle)
 	fmt.Println(contenedorReducer)
+
+	fmt.Println("---->Resultado final")
+	for llave, valor := range contenedorReducer {
+		fmt.Printf("%s, %d\n", llave, valor)
+	}
 
 }
