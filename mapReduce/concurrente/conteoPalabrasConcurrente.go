@@ -117,7 +117,7 @@ func reducer(contenedorShuffler map[string][]tupla) map[string]int {
 
 }
 
-//El main realizará en la versión secuencial el Input, el Splitting y el Final result
+//El main realizará en la versión concurrente el Input, el Splitting y el Final result
 func main() {
 
 	inicio := time.Now() //Inicio de la toma de tiempo
@@ -128,9 +128,9 @@ func main() {
 	var ruta string
 	//Entradas de prueba
 	//ruta = "texto.txt"
-	//ruta = "foo.txt"
+	ruta = "foo.txt"
 	//Entrada de libros completos
-	ruta = "./libros/DonQuijote.txt"
+	//ruta = "./libros/DonQuijote.txt"
 	//ruta = "./libros/Iliad.txt"
 	//ruta = "./libros/AliceWonderland.txt"
 	lineas, _ := leerLineas(ruta)
@@ -164,14 +164,11 @@ func main() {
 
 	}
 
-	/*
-		//Utilización de función mezclada, no hace parte de la estructura original mapReduce
-		fmt.Println("Resultado del mapeo con agregación")
-		for i, linea := range lineas {
-			fmt.Println("Línea ", i)
-			fmt.Println(palabrasString(linea))
-		}
-	*/
+	//Calcular en cuántas partes se divide el trabajo por procesador disponible
+
+	//Preparar las partes de trabajo para asignárselas a los mappers
+
+	//Generación dinámica de canales, deben estar todos listos antes de la concurrencia
 
 	//Definición de función para aplicar en el map
 	//Función simple que no depende de otros resultados
