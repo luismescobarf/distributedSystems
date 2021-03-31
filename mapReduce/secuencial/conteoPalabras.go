@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 )
 
 type tupla struct {
@@ -119,12 +120,19 @@ func reducer(contenedorShuffler map[string][]tupla) map[string]int {
 //El main realizará en la versión secuencial el Input, el Splitting y el Final result
 func main() {
 
+	inicio := time.Now() //Inicio de la toma de tiempo
+
 	//Input y splitting (distribución del trabajo y limpieza del input)
 
 	//Splitting implícito por líneas
 	var ruta string
-	ruta = "texto.txt"
-	//ruta = "foo.txt"
+	//Entradas de prueba
+	//ruta = "texto.txt"
+	ruta = "foo.txt"
+	//Entrada de libros completos
+	//ruta = "./libros/DonQuijote.txt"
+	//ruta = "./libros/Iliad.txt"
+	//ruta = "./libros/AliceWonderland.txt"
 	lineas, _ := leerLineas(ruta)
 	fmt.Println(lineas)
 
@@ -139,6 +147,9 @@ func main() {
 		linea = strings.ReplaceAll(linea, ";", "")
 		linea = strings.ReplaceAll(linea, ",", "")
 		linea = strings.ReplaceAll(linea, ".", "")
+		//linea = strings.ReplaceAll(linea, "\"", "")
+		//linea = strings.ReplaceAll(linea, "\'", "")
+		linea = strings.ReplaceAll(linea, "-", "")
 		//Separar las palabras de la línea o string recibido
 		listadoPalabras := strings.Split(linea, " ")
 		acumuladorPartesTrabajo = append(acumuladorPartesTrabajo, listadoPalabras)
@@ -154,27 +165,31 @@ func main() {
 		}
 	*/
 
-	fmt.Println("---->Resultado etapa de mapeo")
 	var contenedorMapeo [][]tupla
-	for i, parteTrabajo := range acumuladorPartesTrabajo {
-		fmt.Println("Parte ", i)
+	for _, parteTrabajo := range acumuladorPartesTrabajo {
 		contenedorMapeo = append(contenedorMapeo, etapaMap(parteTrabajo))
-		fmt.Println(contenedorMapeo)
+		//Salida de diagnóstico: crecimiento del contenedor de mapeo
+		//fmt.Println(contenedorMapeo)
 	}
+	fmt.Println("---->Resultado etapa de mapeo")
+	//fmt.Println(contenedorMapeo)
 
-	fmt.Println("---->Resultado etapa de shuffling")
 	var contenedorShuffle map[string][]tupla
 	contenedorShuffle = shuffler(contenedorMapeo)
-	fmt.Println(contenedorShuffle)
+	fmt.Println("---->Resultado etapa de shuffling")
+	//fmt.Println(contenedorShuffle)
 
-	fmt.Println("---->Resultado etapa reduce")
 	var contenedorReducer map[string]int
 	contenedorReducer = reducer(contenedorShuffle)
-	fmt.Println(contenedorReducer)
+	fmt.Println("---->Resultado etapa reduce")
+	//fmt.Println(contenedorReducer)
 
-	fmt.Println("---->Resultado final")
+	fmt.Println("********>Resultado final")
 	for llave, valor := range contenedorReducer {
 		fmt.Printf("%s, %d\n", llave, valor)
 	}
+
+	//Finalización y presentación de la toma de tiempo
+	fmt.Println("Tiempo total de cómputo:", time.Since(inicio))
 
 }
