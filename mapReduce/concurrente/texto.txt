@@ -1,0 +1,11 @@
+Descripción
+
+Este es un texto de ejemplo para conteo de palabras utilizando el esquema de map reduce.
+
+Este es otro párrafo Este es otro párrafo Este es otro párrafo Este es otro párrafo.
+
+Vamos a repetir palabras: hola carro casa perro gato gato lugar computador
+hola carro casa perro gato gato lugar computador
+hola carro casa perro gato gato lugar computador
+
+Final del texto, gracias gracias gracias
