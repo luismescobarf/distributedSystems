@@ -55,7 +55,7 @@ func leerLineas(path string) ([]string, error) {
 }
 
 //Etapa de mapeo para la porción de trabajo recibida
-func etapaMap(listadoPalabras []string) []tupla {
+func etapaMap(listadoPalabras []string, funcion func(string) tupla) []tupla {
 
 	/*
 		//Limpiar si hay caracteres al comienzo y al final
@@ -69,7 +69,7 @@ func etapaMap(listadoPalabras []string) []tupla {
 
 	//Realizar el mapeo
 	for i, palabra := range listadoPalabras {
-		contenedorLlaveValor[i] = tupla{llave: palabra, valor: 1}
+		contenedorLlaveValor[i] = funcion(palabra)
 	}
 
 	//Retornar el resultado del mapeo (trabajo del mapper)
@@ -128,13 +128,14 @@ func main() {
 	var ruta string
 	//Entradas de prueba
 	//ruta = "texto.txt"
-	ruta = "foo.txt"
+	//ruta = "foo.txt"
 	//Entrada de libros completos
-	//ruta = "./libros/DonQuijote.txt"
+	ruta = "./libros/DonQuijote.txt"
 	//ruta = "./libros/Iliad.txt"
 	//ruta = "./libros/AliceWonderland.txt"
 	lineas, _ := leerLineas(ruta)
-	fmt.Println(lineas)
+	//Salida de diagnóstico
+	//fmt.Println(lineas)
 
 	//Tratamiento del input para enviar las porciones al flujo del mapReduce
 	var acumuladorPartesTrabajo [][]string
@@ -147,6 +148,13 @@ func main() {
 		linea = strings.ReplaceAll(linea, ";", "")
 		linea = strings.ReplaceAll(linea, ",", "")
 		linea = strings.ReplaceAll(linea, ".", "")
+		linea = strings.ReplaceAll(linea, "!", "")
+		linea = strings.ReplaceAll(linea, "?", "")
+		linea = strings.ReplaceAll(linea, "¿", "")
+		linea = strings.ReplaceAll(linea, "«", "")
+		linea = strings.ReplaceAll(linea, "»", "")
+		linea = strings.ReplaceAll(linea, "(", "")
+		linea = strings.ReplaceAll(linea, ")", "")
 		//linea = strings.ReplaceAll(linea, "\"", "")
 		//linea = strings.ReplaceAll(linea, "\'", "")
 		linea = strings.ReplaceAll(linea, "-", "")
@@ -165,9 +173,16 @@ func main() {
 		}
 	*/
 
+	//Definición de función para aplicar en el map
+	//Función simple que no depende de otros resultados
+	//y puede aplicarse Concurrente/Paralelamente
+	funcion := func(palabra string) tupla {
+		return tupla{llave: palabra, valor: 1}
+	}
+
 	var contenedorMapeo [][]tupla
 	for _, parteTrabajo := range acumuladorPartesTrabajo {
-		contenedorMapeo = append(contenedorMapeo, etapaMap(parteTrabajo))
+		contenedorMapeo = append(contenedorMapeo, etapaMap(parteTrabajo, funcion))
 		//Salida de diagnóstico: crecimiento del contenedor de mapeo
 		//fmt.Println(contenedorMapeo)
 	}
@@ -189,7 +204,9 @@ func main() {
 		fmt.Printf("%s, %d\n", llave, valor)
 	}
 
-	//Finalización y presentación de la toma de tiempo
+	//Presentación de la toma de tiempo y otros indicadores
+	fmt.Println("---------------------------------------")
+	fmt.Println("Número de palabras: ", len(contenedorReducer))
 	fmt.Println("Tiempo total de cómputo:", time.Since(inicio))
 
 }
