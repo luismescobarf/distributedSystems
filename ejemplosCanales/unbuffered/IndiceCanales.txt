@@ -1,0 +1,18 @@
+Índice Canales
+--------------
+canales1.go  -> Presentación del procedimiento sin concurrencia.
+canales2.go  -> Concurrencia sin control.
+canales3.go  -> Creación del canal.
+canales4.go  -> Tipos de datos pasando a través de canales (función por ejemplo)
+canales5.go  -> Incluso se pueden enviar canales a través de canales
+canales6.go  -> Declaración como variable y revisar el valor (un canal que no ha sido inicializado, así como las variables)
+canales7.go  -> Mostrar envío de información por el canal entre rutinas go generadas con funciones sin nombre o funciones especificadas
+canales8.go  -> Procesos (goroutines) que funcionan un número indeterminado de veces, envío y lecturas de un canal de manera indeterminada
+canales9.go  -> Procesos (goroutines) que envían un número determinado de veces, pero la lectura se realiza más veces de la cuenta (deadlock por espera de respuesta)
+canales10.go -> Ejemplo de cierre de canal para evitar deadlock al terminar el envío, surge inconveniente del lado del receptor
+canales11.go -> Validación del estado del canal desde la goroutine receptora
+canales12.go -> Forma idiomática de recibir del canal de forma adecuada evitando deadlocks
+canales13.go -> Pipeline de tabajo con goroutines y canales
+canales14.go -> Sentido de los canales para evitar realizar la operación equivocada. Sólo se pueden cerrar canales en los que se puede escribir (contexto)
+canales15.go -> Trabajando con múltiples canales (por separado)
+
