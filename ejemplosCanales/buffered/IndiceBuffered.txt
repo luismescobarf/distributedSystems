@@ -1,0 +1,108 @@
+Índice Canales (Escuchando varios canales, cancelando y buffered)
+-----------------------------------------------------------------
+canales15.go -> Trabajando con múltiples canales (por separado)
+
+canalCancelar.go -> Cancelar interacción de rutinas go por alguna razón (tiempo transcurrido)
+Uso Avanzado de Canales
+
+- Canales de evento o cancelación
+
+1) Declarar una variable tipo canal sin inicializar
+Canal con valor 0 o nil, en un select nunca será activado.
+(Canal de bloqueo)
+Ese comportamiento se puede aprovechar para situaciones donde
+se requiere un canal desactivado y se quiere activar dependiendo
+de alguna condición.
+
+Cancelar el programa cuando transcurran 3 segundos.
+
+Canal sólo para eventos y no para valores.
+Recibir
+Enviar
+Activar
+Desactivar
+Apertura
+Cierre
+
+struct vacío no ocupa espacio, forma más eficiente de hacerlo
+zero value = nil
+
+- Canales Buffered Channels
+
+2) Buffer, espacio de almacenamiento o amortiguación
+del canal.
+Se almacenan los valores bajo FIFO.
+
+El segundo argumento es el tamaño del buffer
+1 elemento sin tener que esperar a que otro goroutine reciba
+El buffer desconecta las goroutines.
+El channel sin buffer sincroniza.
+El channel con buffer genera comunicación asincrónica.
+Si el buffer se llena, regresa a comportamiento sincrónico.
+len -> Cuántos están almacenados
+cap -> Tamaño del buffer.
+
+*Observar cuando el buffer se cambia por 0
+No tener un buffer obliga la sincronización de los dos goroutines.
+
+
+3) Solución Carrito de Compras (data race)
+
+Mismo dato en memoria modificado por dos goroutines (data race)
+
+Solución con canales del datarace.
+
+Compilar con bandera de datarace
+
+Observar el pipeline de trabajo (recomendado desarrollos distribuídos)
+
+Mejora el tiempo secuencial
+
+- Funcionalidad con los channels: Counting semaphore
+(semáforo de conteo)
+
+
+4)  Canal para garantizar que solamente se puedan ejecutar
+de manera simultánea un número específico de goroutines
+
+Lectura de un archivo
+Una conexión a internet
+(Recursos limitados)
+Límite de archivos abiertos simultáneamente dentro del sistema operativo
+
+Si hay espacio en el buffer se realiza la acción.
+Cuando está lleno el buffer hay bloqueo
+
+variar número counting sem
+
+
+- Mutex y variables compartidas
+(Otro modelo de concurrencia)
+Paquete sync (variables compartidas entre goroutines)
+Evitar los datarace.
+Locks y Unlocks
+
+Modelo recomendado comunidad Go -> Channels
+
+
+5) Lectura de archivos. Conteo de Palabras. Uso de maps. Alto Procesamiento. 
+
+Versión secuencial.
+Versión concurrente (datarace map)
+Semáforo (exclusión mutua)
+
+Modelo de concurrencia de variable compartida. No es el más recomendado. Utilizar canales (comunicación)
+
+- No te comuniques compartiendo variables. Comparte variables comunicándote!
+
+
+Ejercicios Propuestos:
+
+1) Conteo de palabras distribuído. Versión utilizando canales.
+2) Implementación control de una cuenta bancaria con transacciones concurrentes.
+	- La cuenta bancaria es una variable local. Se sugiere controlarla con Mutex.
+	- Transacciones o funciones de la implementación: Retiro y Depósito.
+	- Generar 5 transacciones de Retiro aleatoriamente.
+	- Generar 5 transacciones de Depósito aleatoriamente.
+	- Ejecutarlas de manera concurrente y verificar que el saldo final de la cuenta bancaria esté correcto.
+	- Se pueden emplear canales si se requieren.

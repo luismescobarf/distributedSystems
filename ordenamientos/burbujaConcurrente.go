@@ -26,6 +26,15 @@ func cargar(vec *[]int, aleatorio *rand.Rand) {
 	}
 }
 
+func cargarDistintos(vec *[]int, aleatorio *rand.Rand) {
+
+	var numeroElementos int = 20
+	for i := 0; i < numeroElementos; i++ {
+		*vec = append(*vec, i+1)
+	}
+
+}
+
 //Función de ordenamiento versión Single-Thread
 func ordenar(vec *[50000]int) {
 	for k := 1; k < len(vec); k++ {
@@ -130,8 +139,17 @@ func main() {
 	//Generar el vector que se va a ordenar
 	var vec1 []int
 	aleatorio := rand.New(rand.NewSource(time.Now().UnixNano()))
-	cargar(&vec1, aleatorio)
+	//cargar(&vec1, aleatorio)
+	cargarDistintos(&vec1, aleatorio)
 	fmt.Println(vec1)
+	rand.Shuffle(len(vec1), func(i, j int) {
+		vec1[i], vec1[j] = vec1[j], vec1[i]
+	})
+
+	//Salida de diagnóstico
+	fmt.Println(vec1)
+	var pausaCarga string
+	fmt.Scanln(&pausaCarga)
 
 	//fmt.Println("Número de Procesadores = ", numeroProcesadores)
 
@@ -217,7 +235,7 @@ func main() {
 	fmt.Scanln(&pausa)
 
 	//Salida de diagnóstico
-	fmt.Println("Fragmentos ordenados (grano fino): ")
+	fmt.Println("Fragmentos ordenados: ")
 	fmt.Println(sliceFragmentos)
 
 	////Salida de diagnóstico
@@ -230,31 +248,8 @@ func main() {
 	fmt.Println("Final: ")
 	fmt.Println(sliceFragmentos)
 
-	//ordenarFragmentosOrdenados(sliceFragmentos)
-	//
-	////Salida de diagnóstico
-	//fmt.Println("Fragmentos ordenados (grano grueso): ");
-	//fmt.Println(sliceFragmentos);
+	//Realizar mezcla de fragmentos para producir el vector final ordenado
+	//Realizar mezcla de fragmentos para producir el vector final ordenado
+	//Realizar mezcla de fragmentos para producir el vector final ordenado
 
-	//wg.Add(1)
-	//go mostrar0()
-	//go mostrar1()
-	//wg.Wait()
-
-	//runtime.GOMAXPROCS(1)
-	//aleatorio := rand.New(rand.NewSource(time.Now().UnixNano()))
-	//var vec1 [50000] int
-	//var vec2 [50000] int
-	//cargar(&vec1, aleatorio)
-	//cargar(&vec2, aleatorio)
-	//
-	//var hora1, hora2 time.Time
-	//hora1 = time.Now()
-	//wg.Add(1)
-	//go ordenar(&vec1)
-	//go ordenar(&vec2)
-	//wg.Wait()
-	//hora2 = time.Now()
-	//di := diferenciaTiempo(hora1, hora2)
-	//fmt.Println("Cantidad de segundos de diferencia:", di.Seconds())
 }
