@@ -125,3 +125,13 @@ INFO: Unsupported notification method: $/setTraceNotification
 [0m2021.04.16 17:13:14 INFO  time: initialize in 8.79s[0m
 [0m2021.04.16 17:13:28 WARN  Build server is not auto-connectable.[0m
 [0m2021.04.16 17:13:28 WARN  no build tool detected in workspace '/Users/luismiguelescobarfalcon/Dropbox/UniLibre/SistemasDistribuidos/repositorioSistemasDistribuidos'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.04.16 23:22:19 INFO  shutting down Metals[0m
+[0m2021.04.17 19:00:09 INFO  Started: Metals version 0.10.1 in workspace '/Users/luismiguelescobarfalcon/Dropbox/UniLibre/SistemasDistribuidos/repositorioSistemasDistribuidos' for client vscode 1.55.2.[0m
+[0m2021.04.17 19:00:12 INFO  time: initialize in 3.77s[0m
+[0m2021.04.17 19:00:20 WARN  Build server is not auto-connectable.[0m
+[0m2021.04.17 19:00:20 WARN  no build tool detected in workspace '/Users/luismiguelescobarfalcon/Dropbox/UniLibre/SistemasDistribuidos/repositorioSistemasDistribuidos'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.04.17 19:01:49 INFO  shutting down Metals[0m
+[0m2021.04.19 20:05:04 INFO  Started: Metals version 0.10.1 in workspace '/Users/luismiguelescobarfalcon/Dropbox/UniLibre/SistemasDistribuidos/repositorioSistemasDistribuidos' for client vscode 1.55.2.[0m
+[0m2021.04.19 20:05:11 INFO  time: initialize in 6.77s[0m
+[0m2021.04.19 20:05:25 WARN  Build server is not auto-connectable.[0m
+[0m2021.04.19 20:05:25 WARN  no build tool detected in workspace '/Users/luismiguelescobarfalcon/Dropbox/UniLibre/SistemasDistribuidos/repositorioSistemasDistribuidos'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
