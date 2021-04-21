@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -199,5 +200,25 @@ func main() {
 	fmt.Println("Ruta con índices actualizados:")
 	fmt.Println(optimaEil51)
 	fmt.Println("Costo óptimo literal -> ", instanciaTSP.costoTour(optimaEil51))
+
+	//Prueba de ordenamiento de un slice de aristas
+	seleccionPrimerasAristas := []arista{
+		aristas[0],
+		aristas[1],
+		aristas[2],
+		aristas[3],
+		aristas[4],
+		aristas[5],
+	}
+	fmt.Println("Aristas antes de ordenamiento:")
+	fmt.Println(seleccionPrimerasAristas)
+
+	//Criterio de ordenamiento
+	sort.SliceStable(seleccionPrimerasAristas, func(i, j int) bool {
+		return seleccionPrimerasAristas[i].costo < seleccionPrimerasAristas[j].costo
+	})
+
+	fmt.Println("Aristas después de ordenamiento:")
+	fmt.Println(seleccionPrimerasAristas)
 
 }
