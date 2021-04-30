@@ -125,16 +125,21 @@ func insertionTSP(matrizAdyacencia [][]int, nodoInicial int) solucion {
 
 func main() {
 	// Lee el archivo tsp
-	nombre_archivo := "eil51.tsp"
+	//nombre_archivo := "eil51.tsp"
+	//nombre_archivo := "wi29.tsp"
+	nombre_archivo := "qa194.tsp"
+	//nombre_archivo := "uy734.tsp"
+	//nombre_archivo := "zi929.tsp"
 	f, err := os.Open(nombre_archivo)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	//Slice que recibe los datos
-	var slice []int
+	var slice []float32
 	for {
-		var a int
+		//var a int
+		var a float32
 		_, err := fmt.Fscan(f, &a)
 
 		if err != nil {
@@ -148,11 +153,11 @@ func main() {
 	numRows := len(slice) / 3
 
 	// slice vacio
-	grid := make([][]int, numRows)
+	grid := make([][]float32, numRows)
 
 	//  organiza la estructura del slice de 3 x n
 	for i := 0; i < numRows; i++ {
-		grid[i] = make([]int, 3)
+		grid[i] = make([]float32, 3)
 		// fmt.Println(grid[i])
 
 	}
