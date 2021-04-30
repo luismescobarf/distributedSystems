@@ -191,15 +191,20 @@ func main() {
 
 	//Obtener costo de solución óptima (validación de cálculo de la función objetivo)
 	optimaEil51 := []int{1, 22, 8, 26, 31, 28, 3, 36, 35, 20, 2, 29, 21, 16, 50, 34, 30, 9, 49, 10, 39, 33, 45, 15, 44, 42, 40, 19, 41, 13, 25, 14, 24, 43, 7, 23, 48, 6, 27, 51, 46, 12, 47, 18, 4, 17, 37, 5, 38, 11, 32}
+	insertionClase := []int{41, 43, 44, 32, 14, 36, 16, 46, 11, 50, 45, 4, 48, 8, 9, 38, 29, 33, 20, 28, 1, 49, 15, 37, 10, 31, 0, 26, 47, 7, 21, 19, 34, 35, 2, 27, 30, 25, 6, 22, 42, 23, 5, 13, 24, 17, 3, 12, 40, 39, 18}
+
 	//Ajustar id's
 	for i := 0; i < len(optimaEil51); i++ {
 		optimaEil51[i] = optimaEil51[i] - 1
+		//insertionClase[i] = insertionClase[i] - 1
 	}
 
 	//Salida de diagnóstico
 	fmt.Println("Ruta con índices actualizados:")
 	fmt.Println(optimaEil51)
+	fmt.Println(insertionClase)
 	fmt.Println("Costo óptimo literal -> ", instanciaTSP.costoTour(optimaEil51))
+	fmt.Println("Costo insertion clase -> ", instanciaTSP.costoTour(insertionClase))
 
 	//Prueba de ordenamiento de un slice de aristas
 	seleccionPrimerasAristas := []arista{
